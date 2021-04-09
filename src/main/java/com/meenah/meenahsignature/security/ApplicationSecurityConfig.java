@@ -35,6 +35,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .cors()
+            .and()
             .csrf().disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -42,9 +44,22 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
             .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
             .authorizeRequests()
+            .antMatchers("/",
+                         "/favicon.ico",
+                         "/**/*.png",
+                         "/**/*.gif",
+                         "/**/*.svg",
+                         "/**/*.jpg",
+                         "/**/*.html",
+                         "/**/*.css",
+                         "/**/*.js")
+            .permitAll()
             .antMatchers("/api/register/**")
             .permitAll()
+            .antMatchers("/productmanagement/api/v1/**")
+            .permitAll()
             .antMatchers("/management/api/v1/**").hasAuthority(USER.name())
+//            .antMatchers("/productmanagement/api/v1/**").hasAuthority(USER.name())
             .anyRequest()
             .authenticated();
 

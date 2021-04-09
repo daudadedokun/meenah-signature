@@ -8,7 +8,7 @@ import com.meenah.meenahsignature.role.Role;
 import com.meenah.meenahsignature.role.RoleName;
 import com.meenah.meenahsignature.role.RoleRepository;
 import com.meenah.meenahsignature.security.PasswordConfig;
-import com.meenah.meenahsignature.util.EmailValidator;
+import com.meenah.meenahsignature.util.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +27,12 @@ public class UserService  {
     private final UserRepository userRepository;
     private final PasswordConfig passwordEncoder;
     private final RoleRepository roleRepository;
-    private final EmailValidator emailValidator;
+    private final Validator validator;
 
 
     public ResponseEntity<?> singUp(SignUpRequest signUpRequest){
 
-        boolean isValidEmail = emailValidator.validate(signUpRequest.getEmail());
+        boolean isValidEmail = validator.validateEmail(signUpRequest.getEmail());
         if (!isValidEmail){
             return new ResponseEntity(new ApiResponse(false, "Email is not valid"),
                                       HttpStatus.BAD_REQUEST);
