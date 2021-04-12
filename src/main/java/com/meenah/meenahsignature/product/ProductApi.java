@@ -51,7 +51,7 @@ public class ProductApi {
     }
 
     @GetMapping(path = "{productId}/image/download")
-    public ResponseEntity<?> downloadProductImage(@PathVariable(value = "productId") Long productId){
+    public byte[] downloadProductImage(@PathVariable(value = "productId") Long productId){
 
         return productService.downloadProductImage(productId);
     }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -109,17 +110,14 @@ public class ProductService {
 
     }
 
-    public ResponseEntity<?> downloadProductImage(Long productId){
+    public byte[] downloadProductImage(Long productId){
         Product product = productRepository.getOne(productId);
         if(product.getId() == null){
-            return new ResponseEntity<>(new ApiResponse(false, "Product not found"),
-                                        HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Product not found");
         }
 
         String path = String.format("%s/%s", Bucket.PRODUCT_IMAGE.getName(), product.getId());
-        product.getImageLink().map(key -> fileStore.download(path,key));
-
-        return ResponseEntity.ok().body(new ApiResponse(true, "Product successfully downloaded from s3."));
+        return product.getImageLink().map(key -> fileStore.download(path,key)).orElse(new byte[0]);
 
     }
 

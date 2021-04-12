@@ -6,7 +6,9 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,7 +45,7 @@ public class FileStore {
             S3Object object = amazonS3.getObject(path, key);
             return IOUtils.toByteArray(object.getObjectContent());
         }catch(AmazonServiceException | IOException e){
-           throw new IllegalStateException("Failed to download file to s3");
+           throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Failed to Download from s3.");
         }
     }
 

@@ -1,10 +1,6 @@
+
 INSERT INTO meenahsignature.roles(name) VALUES('USER');
 INSERT INTO meenahsignature.roles(name) VALUES('ADMIN');
-
---INSERT INTO meenahsignature.product(image_link,name) VALUES('',"product1");
---INSERT INTO meenahsignature.product(image_link,name) VALUES('','product2');
-
-
 
 insert into product (name, image_link, brand, price, num_reviews, count_in_stock) values ('Kacie', 'Otto', 'Lavena', 82, 1, 1);
 insert into product (name, image_link, brand, price, num_reviews, count_in_stock) values ('Neal', 'Horace', 'Cord', 65, 2, 2);
