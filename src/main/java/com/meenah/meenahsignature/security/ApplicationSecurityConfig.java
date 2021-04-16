@@ -59,7 +59,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/productmanagement/api/v1/**")
             .permitAll()
             .antMatchers("/management/api/v1/**").hasAuthority(USER.name())
-//            .antMatchers("/productmanagement/api/v1/**").hasAuthority(USER.name())
             .anyRequest()
             .authenticated();
 

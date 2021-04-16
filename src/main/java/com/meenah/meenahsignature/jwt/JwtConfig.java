@@ -42,4 +42,8 @@ public class JwtConfig {
     public String getAuthorizationHeader() {
         return HttpHeaders.AUTHORIZATION;
     }
+
+    public String getAccessControlExposeHeader(){
+        return HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS;
+    }
 }

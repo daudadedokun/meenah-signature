@@ -28,14 +28,19 @@ public class ProductApi {
         return productService.getProducts();
     }
 
+    @GetMapping(path = "{productId}/product")
+    public ResponseEntity<Product> getProduct(@PathVariable(value = "productId") Long productId){
+        return productService.getProduct(productId);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateProduct(@RequestBody Product product) {
-        return productService.updateProduct(product);
+    public void updateProduct(@RequestBody Product product) {
+         productService.updateProduct(product);
     }
 
     @DeleteMapping("{productId}/delete")

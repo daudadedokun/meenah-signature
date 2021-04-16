@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,22 +34,28 @@ public class ProductService {
     }
 
     public ResponseEntity<?> updateProduct(Product product) {
-        boolean productExist = productRepository.findById(product.getId()).isPresent();
-        if (!productExist) {
-            return new ResponseEntity<>(new ApiResponse(false, "Product not found."),
-                                        HttpStatus.NOT_FOUND);
-        }
 
         productRepository.save(product);
 
         return ResponseEntity.ok().body(
             new ApiResponse(true,
-                            "Product successfully updated."));
+                            "Product successfully Updated."));
+
     }
 
 
     public List<Product> getProducts() {
         return productRepository.findAll();
+    }
+
+    public ResponseEntity<Product> getProduct(Long productId){
+        Optional<Product> product = productRepository.findById(productId);
+        if(!product.isPresent())
+            return new ResponseEntity(new ApiResponse(false, "Product not found."),
+                                        HttpStatus.NOT_FOUND);
+
+        return ResponseEntity.of(product);
+
     }
 
     public ResponseEntity<?> deleteProduct(Long productId){

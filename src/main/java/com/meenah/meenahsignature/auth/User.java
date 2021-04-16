@@ -31,20 +31,11 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     private String name;
-
-
     private String username;
-
     @NaturalId
-
     private String email;
-
-
     private String password;
-
     private boolean isAdmin;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
