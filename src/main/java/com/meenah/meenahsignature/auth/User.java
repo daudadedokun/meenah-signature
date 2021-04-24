@@ -1,5 +1,6 @@
 package com.meenah.meenahsignature.auth;
 
+import com.meenah.meenahsignature.audit.DateAudit;
 import com.meenah.meenahsignature.role.Role;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +27,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-public class User{
+public class User extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

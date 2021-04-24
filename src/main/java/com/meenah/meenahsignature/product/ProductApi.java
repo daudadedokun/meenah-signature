@@ -33,14 +33,14 @@ public class ProductApi {
         return productService.getProduct(productId);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    @PostMapping("{categoryId}/add")
+    public Product addProduct(@RequestBody Product product, @PathVariable (value = "categoryId") Long categoryId) {
+        return productService.addProduct(product, categoryId);
     }
 
-    @PutMapping("/update")
-    public void updateProduct(@RequestBody Product product) {
-         productService.updateProduct(product);
+    @PutMapping("{categoryId}/update")
+    public Product updateProduct(@RequestBody Product product, @PathVariable (value = "categoryId") Long categoryId) {
+         return productService.updateProduct(product,categoryId);
     }
 
     @DeleteMapping("{productId}/delete")

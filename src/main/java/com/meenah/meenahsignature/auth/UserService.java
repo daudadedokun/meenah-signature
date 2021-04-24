@@ -2,6 +2,7 @@ package com.meenah.meenahsignature.auth;
 
 
 import com.meenah.meenahsignature.exception.AppException;
+import com.meenah.meenahsignature.exception.ResourcesNotFoundException;
 import com.meenah.meenahsignature.payload.ApiResponse;
 import com.meenah.meenahsignature.payload.SignUpRequest;
 import com.meenah.meenahsignature.role.Role;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class UserService  {
 
         String encodedPassword = passwordEncoder.passwordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
+        user.setCreatedAt(Instant.now());
 
         Role userRole = roleRepository.findByName(RoleName.USER)
                                       .orElseThrow(() -> new AppException("User Role not set."));
@@ -66,6 +69,15 @@ public class UserService  {
             .buildAndExpand(result.getUsername()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+    }
+
+    public User updateUser(User user){
+
+        return userRepository.findById(user.getId()).map((u)->{
+            u.setEmail(user.getEmail());
+            u.setUpdatedAt(Instant.now());
+            return userRepository.save(u);
+        }).orElseThrow(() -> new ResourcesNotFoundException("User not found"+user.getId()));
     }
 
     public List<User> getAllUsers() {

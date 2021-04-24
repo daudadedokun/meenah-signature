@@ -29,4 +29,6 @@ public class UserApi {
     public ResponseEntity<?> register(@RequestBody SignUpRequest request){
         return userService.singUp(request);
     }
+
+
 }

@@ -2,9 +2,11 @@
 --INSERT INTO meenahsignature.roles(name) VALUES('USER');
 --INSERT INTO meenahsignature.roles(name) VALUES('ADMIN');
 
-INSERT INTO meenahsignature.categories(name) VALUES('MEN');
-INSERT INTO meenahsignature.categories(name) VALUES('WOMEN');
-INSERT INTO meenahsignature.categories(name) VALUES('CHILDREN');
+INSERT INTO meenahsignature.categories(name) VALUES('Bread');
+INSERT INTO meenahsignature.categories(name) VALUES('Dairy');
+INSERT INTO meenahsignature.categories(name) VALUES('Fruits');
+INSERT INTO meenahsignature.categories(name) VALUES('Seasonings');
+INSERT INTO meenahsignature.categories(name) VALUES('Vegetables');
 
 --insert into product (name, image_link, brand, price, num_reviews, count_in_stock) values ('Kacie', 'Otto', 'Lavena', 82, 1, 1);
 --insert into product (name, image_link, brand, price, num_reviews, count_in_stock) values ('Neal', 'Horace', 'Cord', 65, 2, 2);
